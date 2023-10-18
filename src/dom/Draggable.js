@@ -1,9 +1,9 @@
-import {Evented} from '../core/Events';
-import Browser from '../core/Browser';
-import * as DomEvent from './DomEvent';
-import * as DomUtil from './DomUtil';
-import * as Util from '../core/Util';
-import {Point} from '../geometry/Point';
+import {Evented} from '../core/Events.js';
+import Browser from '../core/Browser.js';
+import * as DomEvent from './DomEvent.js';
+import * as DomUtil from './DomUtil.js';
+import * as Util from '../core/Util.js';
+import {Point} from '../geometry/Point.js';
 
 /*
  * @class Draggable
@@ -202,8 +202,12 @@ export const Draggable = Evented.extend({
 		DomUtil.enableImageDrag();
 		DomUtil.enableTextSelection();
 
-		if (this._moved && this._moving) {
+		const fireDragend = this._moved && this._moving;
 
+		this._moving = false;
+		Draggable._dragging = false;
+
+		if (fireDragend) {
 			// @event dragend: DragEndEvent
 			// Fired when the drag ends.
 			this.fire('dragend', {
@@ -211,9 +215,6 @@ export const Draggable = Evented.extend({
 				distance: this._newPos.distanceTo(this._startPos)
 			});
 		}
-
-		this._moving = false;
-		Draggable._dragging = false;
 	}
 
 });

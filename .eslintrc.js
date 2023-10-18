@@ -2,7 +2,6 @@
 module.exports = {
 	ignorePatterns: [
 		'dist',
-		'debug',
 		'docs/docs/highlight',
 		'docs/examples/choropleth/us-states.js',
 		'docs/examples/geojson/sample-geojson.js',
@@ -10,6 +9,7 @@ module.exports = {
 		'docs/examples/extending/extending-2-layers.md',
 		'docs/_posts/201*',
 		'docs/_site',
+		'coverage'
 	],
 	root: true,
 	globals: {
@@ -21,7 +21,8 @@ module.exports = {
 	},
 	extends: 'mourner',
 	plugins: [
-		'@mapbox/eslint-plugin-script-tags'
+		'@mapbox/eslint-plugin-script-tags',
+		'eslint-plugin-import'
 	],
 	parserOptions: {
 		ecmaVersion: 'latest',
@@ -30,6 +31,7 @@ module.exports = {
 	rules: {
 		'consistent-return': 'off',
 		'curly': 'error',
+		'import/extensions': ['error', 'ignorePackages'],
 		'indent': ['error', 'tab', {VariableDeclarator: 0, flatTernaryExpressions: true}],
 		'key-spacing': 'off',
 		'linebreak-style': ['off', 'unix'],
@@ -38,10 +40,12 @@ module.exports = {
 		'spaced-comment': 'error',
 		'strict': 'off',
 		'wrap-iife': 'off',
+		'guard-for-in': 'error',
 		// TODO: Re-enable the rules below and fix the linting issues.
 		'no-invalid-this': 'off',
 		'prefer-object-has-own': 'error',
-		'prefer-spread': 'off'
+		'prefer-spread': 'off',
+		'no-new': 'off'
 	},
 	overrides: [
 		{
@@ -62,6 +66,14 @@ module.exports = {
 			rules: {
 				'eol-last': 'off',
 				'no-unused-vars': 'off'
+			}
+		},
+		{
+			files: [
+				'*.html'
+			],
+			rules: {
+				'eol-last': 'off'
 			}
 		}
 	]
